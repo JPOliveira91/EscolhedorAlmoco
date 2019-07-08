@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <hibernate-configuration>
+    <session-factory xmlns="urn:nhibernate-configuration-2.2">
+      <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
+
+      <!--<property name="dialect">NHibernate.Dialect.Oracle10gDialect</property>
+      <property name="connection.driver_class">NHibernate.Driver.OracleClientDriver</property>-->
+
+      <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
+      <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+
+      <property name="show_sql">false</property>
+    </session-factory>
+  </hibernate-configuration>
+</configuration>

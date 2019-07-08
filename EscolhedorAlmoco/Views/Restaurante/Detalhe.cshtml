@@ -1,0 +1,100 @@
+﻿@model EscolhedorAlmoco.Models.RestauranteFiltro
+
+@{
+    ViewBag.Title = "Detalhe Restaurante";
+}
+
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    <div class="jumbotron">
+        <h2>Detalhe - @Html.DisplayFor(model => model.Apelido)</h2>
+    </div>
+    <div>
+        <section style="width: 320px;">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.Nome)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.Nome)
+                </div>
+                <div style="margin-top: 10px;">
+                    @Html.LabelFor(model => model.Apelido)
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.Apelido)
+                </div>
+                <div style="margin-top: 10px;">
+                    @Html.Label("Endereço")
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.Endereco)
+                </div>
+                <div style="margin-top: 10px;">
+                    @Html.Label("Observação")
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.Observacao)
+                </div>
+                <div style="margin-top: 10px;">
+                    <table style="width: 400px;">
+                        <tr>
+                            <td>
+                                @Html.Label("Custo")
+                            </td>
+                        </tr>
+                        <tr>
+                            @foreach (var item in Model.CustosDisponiveis)
+                            {
+                                <td style="padding-right: 10px;">
+                                    <input type="checkbox"
+                                           name="CustosSelecionados"
+                                           checked="@Model.CustosSelecionados.Contains(Int32.Parse(item.Value))"
+                                           value="@item.Value"
+                                           disabled="disabled" /> @item.Text
+                                    </td>
+                                }
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 10px;">
+                                @Html.Label("Tipo")
+                            </td>
+                        </tr>
+                        <tr>
+                            @foreach (var item in Model.TiposDisponiveis)
+                            {
+                                <td style="padding-right: 10px;">
+                                    <input type="checkbox"
+                                           name="TiposSelecionados"
+                                           checked="@Model.TiposSelecionados.Contains(Int32.Parse(item.Value))"
+                                           value="@item.Value"
+                                           disabled="disabled" /> @item.Text
+                                    </td>
+                                }
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 10px;">
+                                @Html.Label("Veto")
+                            </td>
+                        </tr>
+                        <tr>
+                            @foreach (var item in Model.VetosDisponiveis)
+                            {
+                                <td style="padding-right: 10px;">
+                                    <input type="checkbox"
+                                           name="VetosSelecionados"
+                                           checked="@Model.VetosSelecionados.Contains(Int32.Parse(item.Value))"
+                                           value="@item.Value"
+                                           disabled="disabled" /> @item.Text
+                                    </td>
+                                }
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </section>
+    </div>
+}

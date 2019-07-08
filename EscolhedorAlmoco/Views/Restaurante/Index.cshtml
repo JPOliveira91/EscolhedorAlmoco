@@ -1,0 +1,160 @@
+﻿@using GridMvc.Html
+@using EscolhedorAlmoco.Models
+
+@model RestauranteFiltro
+
+@{
+    ViewBag.Title = "Lista dos Restaurantes";
+}
+
+<div class="jumbotron">
+    <h2>Lista dos Restaurantes</h2>
+</div>
+
+<div>
+    <section>
+        @using (Html.BeginForm("Index", "Restaurante"))
+        {
+            @Html.ValidationSummary(false)
+            @Html.AntiForgeryToken()
+
+            <fieldset>
+                <table style="margin-bottom: 20px; margin-left: 27px;">
+                    <tr>
+                        <td style="padding-left: 20px;">
+                            <table>
+                                <tr>
+                                    <td style="padding-right: 20px;">
+                                        @Html.Label("Custo")
+                                    </td>
+                                    @foreach (var item in Model.CustosDisponiveis)
+                                    {
+                                        <td style="padding-right: 10px;">
+                                            <input type="checkbox"
+                                                   name="CustosSelecionados"
+                                                   checked="@Model.CustosSelecionados.Contains(Int32.Parse(item.Value))"
+                                                   value="@item.Value" /> @item.Text
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td style="padding-right: 20px;">
+                                        @Html.Label("Tipo")
+                                    </td>
+                                    @foreach (var item in Model.TiposDisponiveis)
+                                    {
+                                        <td style="padding-right: 10px;">
+                                            <input type="checkbox"
+                                                   name="TiposSelecionados"
+                                                   checked="@Model.TiposSelecionados.Contains(Int32.Parse(item.Value))"
+                                                   value="@item.Value" /> @item.Text
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td style="padding-right: 20px;">
+                                        @Html.Label("Veto")
+                                    </td>
+                                    @foreach (var item in Model.VetosDisponiveis)
+                                    {
+                                        <td style="padding-right: 10px;">
+                                            <input type="checkbox"
+                                                   name="VetosSelecionados"
+                                                   checked="@Model.VetosSelecionados.Contains(Int32.Parse(item.Value))"
+                                                   value="@item.Value" /> @item.Text
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 20px;">
+                            <input type="submit" class="float-right" style="margin-top: 15px;" value="Consultar" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        }
+    </section>
+</div>
+
+<div class="row">
+    <section style="margin-left: auto; margin-right: auto; width: 1100px;">
+        @if (TempData["sucessMessage"] != null)
+        {
+            <p class="sucess-message">
+                @TempData["sucessMessage"]
+            </p>
+        }
+
+        @if (Model.Restaurantes.Count > 0)
+        {
+            <div>
+                @Html.Grid(Model.Restaurantes).Columns(columns =>
+                   {
+                       columns.Add()
+                           .Titled("Nome")
+                           .Sanitized(false)
+                           .Encoded(false)
+                           .Filterable(false)
+                           .Sortable(false)
+                           .SetWidth(150)
+                           .RenderValueAs(item => @Html.ActionLink(item.Nome, "Detalhe", new { IdRestaurante = item.IdRestaurante }));
+                       columns.Add(item => item.Apelido)
+                           .Titled("Apelido")
+                           .Filterable(false)
+                           .Sortable(false)
+                           .SetWidth(125);
+                       columns.Add(item => item.Endereco)
+                           .Titled("Endereço")
+                           .Filterable(false)
+                           .Sortable(false)
+                           .SetWidth(200);
+                       columns.Add(item => item.Observacao)
+                           .Titled("Observação")
+                           .Filterable(false)
+                           .Sortable(false)
+                           .SetWidth(150);
+                       columns.Add()
+                           .Titled("")
+                           .Sanitized(false)
+                           .Encoded(false)
+                           .Filterable(false)
+                           .Sortable(false)
+                           .SetWidth(40)
+                           .RenderValueAs(item => "<a href='" + @Url.Action("Editar", "Restaurante", new { IdRestaurante = item.IdRestaurante }) + "' runat='server'><input class='report_image' name='image' src='" + @Url.Content("~/Images/Edit.png") + "' type='image' /></a>");
+                       //columns.Add()
+                       //    .Titled("")
+                       //    .Sanitized(false)
+                       //    .Encoded(false)
+                       //    .Filterable(false)
+                       //    .Sortable(false)
+                       //    .SetWidth(75)
+                       //    .RenderValueAs(item => @Html.ConfirmationLink(actionName: "Delete", linkText: "Remover", routeValues: new { id = item.Id }, htmlAttributes: null, dialogId: "lnkDelete", dialogTitle: "Exclusão de restaurante", dialogMessage: "Tem certeza que deseja remover este restaurante?", dialogButtonConfirm: "Sim", dialogButtonCancel: "Não"));
+                       columns.Add(item => item.IdRestaurante, true)
+                           .Filterable(false)
+                           .Sortable(false);
+                   })
+            </div>
+        }
+        else
+        {
+            <table style="margin-left: auto; margin-right: auto; width: 403px;">
+                <tr>
+                    <th>
+                        Não foi encontrado Restaurante com os filtros selecionados
+                    </th>
+                </tr>
+            </table>
+        }
+
+        <table>
+            <tr>
+                <td style="text-align: right; width: 1100px; padding-top: 10px;">
+                    <b>@Html.ActionLink("Novo Restaurante", "Incluir", null, new { @class = "new-object-button" })</b>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>

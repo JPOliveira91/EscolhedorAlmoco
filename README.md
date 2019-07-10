@@ -1,3 +1,7 @@
+[![GitHub issues](https://img.shields.io/github/issues/JPOliveira91/EscolhedorAlmoco.svg)](https://github.com/JPOliveira91/EscolhedorAlmoco/issues)
+[![GitHub forks](https://img.shields.io/github/forks/JPOliveira91/EscolhedorAlmoco.svg)](https://github.com/JPOliveira91/EscolhedorAlmoco/network)
+[![GitHub stars](https://img.shields.io/github/stars/JPOliveira91/EscolhedorAlmoco.svg)](https://github.com/JPOliveira91/EscolhedorAlmoco/stargazers)
+
 Site simples para cadastrar, consultar e escolher aleatoriamente um restaurante.
 
 Possui três telas atualmente:

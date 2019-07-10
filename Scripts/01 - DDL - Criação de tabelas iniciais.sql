@@ -10,7 +10,7 @@ CREATE TABLE Restaurante(
 	Apelido VARCHAR(50) NULL,
 	Endereco VARCHAR(100) NULL,
 	Observacao VARCHAR(100) NULL,
-	CONSTRAINT PK_Custo PRIMARY KEY (IdCusto)
+	CONSTRAINT PK_Restaurante PRIMARY KEY (IdRestaurante)
 )
 
 CREATE TABLE Tipo(
